@@ -4,6 +4,8 @@
 #include <string>
 #include <ctime>
 #include "deck.h"
+#include <functional>
+#include "game.h"
 
 using namespace std;
 
@@ -19,8 +21,6 @@ using namespace std;
 // };
 
 stack<Card> Deck;
-const int decksize = 52;
-const int GamesToPlay = 200;
 
 int playerScore =0;
 int playerWins =0;
@@ -51,18 +51,18 @@ void print_deck(stack<Card> deck){
 }
 
 
-void playerDraw(){
-    Card drawnCard = Deck.top();
-    Deck.pop();
+void playerDraw(stack<Card> &deck){
+    Card drawnCard = deck.top();
+    deck.pop();
     playerScore += drawnCard.value;
     cout << "Player drew " << drawnCard.suit << " " << drawnCard.value << endl;
 }
 
-bool playerHit(){
+bool playerHit(stack<Card> &deck){
     
     while(playerScore < 16){
         
-        playerDraw();
+        playerDraw(deck);
     }
     if(playerScore > 21){
         return false;
@@ -72,17 +72,17 @@ bool playerHit(){
 }
 
 
-void dealerDraw(){
-    Card drawnCard = Deck.top();
-    Deck.pop();
+void dealerDraw(stack<Card> &deck){
+    Card drawnCard = deck.top();
+    deck.pop();
     dealerScore += drawnCard.value;
         cout << "Dealer drew " << drawnCard.suit << " " << drawnCard.value << endl;
 
 }
 
-bool dealerHit(){
+bool dealerHit(stack<Card> &deck){
     while(dealerScore<playerScore){
-        dealerDraw();
+        dealerDraw(deck);
     }
     if(dealerScore > 21){
         return false;
@@ -92,23 +92,18 @@ bool dealerHit(){
     return true;
 }
 
-void clearDeck(){
-    for( int i =0; i < decksize; i++){
-        if(!Deck.empty()){
-            Deck.pop();
-        }
-    }
-}
+
 
 void newRound(){
     cout << "New round has started" << endl;
-    clearDeck();
+    //stack<Card>
+    clearDeck(Deck);
     Deck = shuffleDeck(Cards);
     print_deck(Deck);
     gamesPlayed++;
     playerScore =0;
     dealerScore=0;
-    if(playerHit() && !dealerHit()){
+    if(playerHit(Deck) && !dealerHit(Deck)){
         
         playerWins++;
         cout << "Player won" <<endl;
@@ -120,18 +115,12 @@ void newRound(){
     cout << "Round end" << endl;
 }
 
-void play_game(){
-    cout << "play_game was called" << endl;
-    for(int i =0; i < GamesToPlay; i++){
-        cout << "this is game number: " << i << endl;
-        newRound();
-    }
-}
+
 
 int main() { 
     
     cout<<"Hello world"<<endl;
-    play_game();
+    play_game(newRound, false);
     cout<<"Player won: " << playerWins << " times" << endl;
     cout <<"Dealer won: " << dealerWins << " times" << endl;
 

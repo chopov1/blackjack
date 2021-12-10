@@ -10,6 +10,8 @@
 
 using namespace std;
 
+const int decksize = 52;
+
 
 vector<Card> Cards = {{"a of hearts", 1},{"2 of hearts", 2}, {"3 of hearts", 3}, {"4 of hearts", 4}, {"5 of hearts", 5}, {"6 of hearts", 6}, {"7 of hearts", 7}, {"8 of hearts", 8}, {"9 of hearts", 9}, {"10 of hearts", 10}, {"j of hearts", 11}, {"q of hearts", 12}, {"k of hearts", 13},
     {"a of clubs", 1},{"2 of clubs", 2}, {"3 of clubs", 3}, {"4 of clubs", 4}, {"5 of clubs", 5}, {"6 of clubs", 6}, {"7 of clubs", 7}, {"8 of clubs", 8}, {"9 of clubs", 9}, {"10 of clubs", 10}, {"j of clubs", 11}, {"q of clubs", 12}, {"k of clubs", 13},
@@ -24,6 +26,16 @@ vector<Card> Cards = {{"a of hearts", 1},{"2 of hearts", 2}, {"3 of hearts", 3},
 //     {"a of spades", 1},{"2 of spades", 2}, {"3 of spades", 3}, {"4 of spades", 4}, {"5 of spades", 5}, {"6 of spades", 6}, {"7 of spades", 7}, {"8 of spades", 8}, {"9 of spades", 9}, {"10 of spades", 10}, {"j of spades", 11}, {"q of spades", 12}, {"k of spades", 13}};
 //     return testcards;
 // }
+
+
+stack<Card> clearDeck(stack<Card> &deck){
+    for( int i =0; i < decksize; i++){
+        if(!deck.empty()){
+            deck.pop();
+        }
+    }
+    return deck;
+}
 
 
 stack<Card> shuffleDeck(vector<Card> cards){
@@ -53,5 +65,7 @@ stack<Card> shuffleDeck(vector<Card> cards){
     
     return shuffled;
 }
+
+stack<Card> TestDeck = shuffleDeck(Cards);
 
 

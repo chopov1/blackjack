@@ -4,7 +4,7 @@
 #include <stack>
 #include "deck.h"
 #include "card.h"
-
+#include "game.h"
 
 using namespace std;
 
@@ -24,11 +24,15 @@ private:
 //what is this called where we just call the class name as a function to create an instance of it?
 //vector<Card> testcards = initCards();
 
-
 public:
+
     DeckTestHarness(){
+        
         register_test_func("deckShuffled", [this]()-> void { assert_equal((size_t)52, shuffleDeck(Cards).size());});
-        register_test_func("deckShuffledfail", [this]()-> void { assert_equal((size_t)50, shuffleDeck(Cards).size());});
+        //register_test_func("deckShuffledfail", [this]()-> void { assert_equal((size_t)50, shuffleDeck(Cards).size());});
+        register_test_func("deckCleared", [this]()->void{assert_equal((size_t)0, clearDeck(TestDeck).size());});
+        //register_test_func("deckClearedfail", [this]()->void{assert_equal((size_t)1, clearDeck(TestDeck).size());});
+        register_test_func("GamesPlayed", [this]()-> void { assert_equal(200, play_game(testNewRound, true));});
     }
 };
 
