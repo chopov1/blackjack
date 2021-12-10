@@ -1,17 +1,31 @@
-#pragma once
-
+//#pragma once
 #include <functional>
 #include <iostream>
 #include <map>
 #include <string>
+#include <functional>
+#include <stack>
+
+//class Card;
 
 static bool failed = false;
 
+// template <class T>
+// constexpr void assert_equal(const T &expected, std::function<void(stack<Card>)>& func) {
+//   if (expected != func.size()) {
+//     std::cout << "Result\tError\tExpected: " << expected << " actual "
+//               << func.size() << std::endl;
+//     failed = true;
+//   } else {
+//     std::cout << "Result\tOK" << std::endl;
+//   }
+// }
+
 template <class T>
-constexpr void assert_equal(const T &expected, const T &testVal) {
-  if (expected != testVal) {
+constexpr void assert_equal(const T &expected, const T &testvalue) {
+  if (expected != testvalue) {
     std::cout << "Result\tError\tExpected: " << expected << " actual "
-              << testVal << std::endl;
+              << testvalue << std::endl;
     failed = true;
   } else {
     std::cout << "Result\tOK" << std::endl;
